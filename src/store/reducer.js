@@ -3,6 +3,12 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+    if(action.type==="INC_COUNTER"){
+        return {
+            counter: state.counter + 1
+        }
+    }
+    
     return state
 }
 
