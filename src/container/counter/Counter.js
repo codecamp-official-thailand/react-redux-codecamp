@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import CounterDisplay from "../../components/CounterDisplay/CounterDisplay";
 import CounterPanel from "../../components/CounterPanel/CounterPanel";
 
 function Counter() {
-  const [counter, setCounter] = useState(0);
 
   const handleCounterChange = (action, value) => {
     switch (action) {
@@ -24,7 +24,7 @@ function Counter() {
 
   return (
     <div>
-      <CounterDisplay counter={counter} />
+      <CounterDisplay counter={props.ctr} />
       <CounterPanel label="Increase" changed={() => handleCounterChange("increase")} />
       <CounterPanel label="Decrease" changed={() => handleCounterChange("decrease")} />
       <CounterPanel label="Add 5" changed={() => handleCounterChange("add", 5)} />
@@ -33,4 +33,10 @@ function Counter() {
   );
 }
 
-export default Counter;
+const mapStateToProps = state => {
+  return {
+    ctr: state.counter
+  }
+}
+
+export default connect(mapStateToProps)(Counter);
