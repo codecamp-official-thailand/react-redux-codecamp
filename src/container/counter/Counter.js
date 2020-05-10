@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux"; // import ฟังชันท์ connect ที่เอาไว้ใช้เชื่อมระหว่าง react กับ redux
+import { connect } from "react-redux";
 import CounterDisplay from "../../components/CounterDisplay/CounterDisplay";
 import CounterPanel from "../../components/CounterPanel/CounterPanel";
 
@@ -33,14 +33,10 @@ function Counter() {
   );
 }
 
-const mapStateToProps = state => {  // function นี้จะรับ state ใน store มาให้เราเรียก
+const mapStateToProps = state => {
   return {
-    ctr: state.counter  // บอกฟังก์ชัน connect ให้แปลง counter (state ที่อยู่ใน Store) ให้เป็น props ที่ชื่อว่า ctr
+    ctr: state.counter
   }
 }
 
 export default connect(mapStateToProps)(Counter);  
-// !!!Advanced Information!!! - เป็น high order function ที่ return high order component
-// connect เอา State ใน Store มาใส่ให้ component ใช้(ในรูปของ props)
-
-//connect(mapstateToProps) จะ return ออกมาเป็น Component ที่มี props ให้ใช้(ที่มาจาก store)
