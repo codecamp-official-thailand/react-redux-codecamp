@@ -1,36 +1,48 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import CounterDisplay from "../../components/CounterDisplay/CounterDisplay";
 import CounterPanel from "../../components/CounterPanel/CounterPanel";
+import * as actionCreators from "../../store/action";
 
-function Counter() {
-  const [counter, setCounter] = useState(0);
-
-  const handleCounterChange = (action, value) => {
-    switch (action) {
-      case "increase":
-        setCounter((counter) => counter + 1);
-        break;
-      case "decrease":
-        setCounter((counter) => counter - 1);
-        break;
-      case "add":
-        setCounter((counter) => counter + value);
-        break;
-      case "subtract":
-        setCounter((counter) => counter - value);
-        break;
-    }
-  };
-
+function Counter(props) {
   return (
     <div>
-      <CounterDisplay counter={counter} />
-      <CounterPanel label="Increase" changed={() => handleCounterChange("increase")} />
-      <CounterPanel label="Decrease" changed={() => handleCounterChange("decrease")} />
-      <CounterPanel label="Add 5" changed={() => handleCounterChange("add", 5)} />
-      <CounterPanel label="Subtract 5" changed={() => handleCounterChange("subtract", 5)} />
+      <CounterDisplay counter={props.ctr} />
+      <CounterPanel label="Increase" changed={props.onIncreaseCounter} />
+      <CounterPanel label="Decrease" changed={props.onDecreaseCounter} />
+      <CounterPanel label="Add 10" changed={props.onAddCounter} />
+      <CounterPanel label="Subtract 10" changed={props.onSubtractCounter} />
+      <hr />
+      <button onClick={() => props.onStoreResult(props.ctr)}>
+        Store Result
+      </button>
+      <ul>
+        {props.results.map((result) => (
+          <li key={result.id} onClick={() => props.onDeleteResult(result.id)}>
+            {result.value}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export default Counter;
+const mapStateToProps = (state) => {
+  return {
+    ctr: state.ctr.counter,
+    results: state.res.results,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onIncreaseCounter: () => dispatch(actionCreators.incrementCounter()),
+    onDecreaseCounter: () => dispatch(actionCreators.decrementCounter()),
+    onAddCounter: () => dispatch(actionCreators.addCounter(10)),
+    onSubtractCounter: () => dispatch(actionCreators.subCounter(10)),
+    onStoreResult: (value) => dispatch(actionCreators.storeResult(value)),
+    onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
