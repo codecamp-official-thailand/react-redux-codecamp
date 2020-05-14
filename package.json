@@ -10,8 +10,12 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
+<<<<<<< HEAD
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
+=======
+    "redux": "^4.0.5"
+>>>>>>> 389632e22349745501eb53acd3b82d0e38e86ed4
   },
   "scripts": {
     "start": "react-scripts start",
