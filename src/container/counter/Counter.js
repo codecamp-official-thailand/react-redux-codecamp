@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import CounterDisplay from "../../components/CounterDisplay/CounterDisplay";
 import CounterPanel from "../../components/CounterPanel/CounterPanel";
-import * as actionCreators from "../../store/action";
+import * as actionCreators from "../../store/actions/index";
 
 function Counter(props) {
   return (
